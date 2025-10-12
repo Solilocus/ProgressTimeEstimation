@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36518.9 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgressTimeEstimation", "ProgressTimeEstimation\ProgressTimeEstimation.csproj", "{0CE585E3-C468-46D0-B42B-4E77D673B6A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo", "Demo\Demo.csproj", "{FC36A8B7-7FA1-4008-A21D-76F94CC19721}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0CE585E3-C468-46D0-B42B-4E77D673B6A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CE585E3-C468-46D0-B42B-4E77D673B6A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CE585E3-C468-46D0-B42B-4E77D673B6A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CE585E3-C468-46D0-B42B-4E77D673B6A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC36A8B7-7FA1-4008-A21D-76F94CC19721}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC36A8B7-7FA1-4008-A21D-76F94CC19721}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC36A8B7-7FA1-4008-A21D-76F94CC19721}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC36A8B7-7FA1-4008-A21D-76F94CC19721}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {04D9B94F-A667-4A52-A582-F0055591844D}
+	EndGlobalSection
+EndGlobal
