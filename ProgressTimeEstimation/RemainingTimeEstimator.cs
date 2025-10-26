@@ -2,6 +2,13 @@
 
 namespace ProgressTimeEstimation;
 
+/// <summary>
+/// Simple remaining time estimator. Can be used to provide a feedback to the user about the remaining time to complete a task.
+/// A task can be any process where we can measure the progress.
+/// The steps measure the progress of the task and the final step number must be known before starting.
+/// The goal is to provide a remaining time that is always decreasing, even if the value is less accurate.
+/// For the UX, it is preferable to have a smooth decreasing remaining time, than one jumping up and down.
+/// </summary>
 public class RemainingTimeEstimator
 {
     /// <summary>
@@ -21,8 +28,14 @@ public class RemainingTimeEstimator
     /// </summary>
     public double ProcessedSteps { get; protected set; }
 
+    /// <summary>
+    /// This will be the first remaining time right after calling Start().
+    /// </summary>
     public TimeSpan MaxProcessTime { get; protected set; }
 
+    /// <summary>
+    /// Current remaining time estimation. It is the same as the one returned by Update().
+    /// </summary>
     public TimeSpan RemainingTime { get; protected set; }
 
     /// <summary>
@@ -30,8 +43,14 @@ public class RemainingTimeEstimator
     /// </summary>
     public double CurrentSpeed { get; protected set; }
 
+    /// <summary>
+    /// The UTC time when the task was started.
+    /// </summary>
     public DateTime StartTimeUtc { get; protected set; }
 
+    /// <summary>
+    /// The current task progress in %.
+    /// </summary>
     public double ProcessedPercent
     {
         get
@@ -43,6 +62,13 @@ public class RemainingTimeEstimator
         }
     }
 
+    /// <summary>
+    /// Constructor. The estimator can be re-used only if the total steps remain the same.
+    /// Otherwise instantiate a new estimator.
+    /// </summary>
+    /// <param name="totalSteps">The total steps of the task. Must be bigger than zero.</param>
+    /// <param name="maxProcessTime">Optional. Use it if you have an estimation of the absolute maximum time your task will take.</param>
+    /// <exception cref="ArgumentOutOfRangeException">Total steps cannot be zero or lower.</exception>
     public RemainingTimeEstimator(double totalSteps, TimeSpan? maxProcessTime = null)
     {
         if (totalSteps <= 0)
@@ -64,7 +90,7 @@ public class RemainingTimeEstimator
 
     /// <summary>
     /// Use this method when the task is started.
-    /// Can also be used to reset the estimator.
+    /// Can also be used to reset the estimator, but total steps must be the same.
     /// </summary>
     public void Start()
     {
@@ -74,6 +100,11 @@ public class RemainingTimeEstimator
         CurrentSpeed = TotalSteps / MaxProcessTime.TotalSeconds;
     }
 
+    /// <summary>
+    /// Call this method each time the task has progressed.
+    /// </summary>
+    /// <param name="processedSteps">The steps processed by the task.</param>
+    /// <returns>Estimated remaining time.</returns>
     public TimeSpan Update(double processedSteps)
     {
         TimeSpan elapsedTime = DateTime.UtcNow - StartTimeUtc;
@@ -81,16 +112,18 @@ public class RemainingTimeEstimator
 
         if (elapsedSeconds == 0 || processedSteps <= 0)
         {
+            // Update was called too soon after Start() or no steps were processed yet.
             RemainingTime = TimeSpan.FromSeconds(TotalSteps / CurrentSpeed);
             return RemainingTime;
         }
 
+        ProcessedSteps = processedSteps;
         double averageSpeed = processedSteps / elapsedSeconds;
         double deltaSpeed = averageSpeed - CurrentSpeed;
 
         // This regulate how fast the estimated speed approach the average speed.
         // In the beginning the speed should change slowly, then accelerate toward the end.
-        double proportionalGain = Math.Min(Math.Pow(processedSteps / TotalSteps, 4), 1.0);
+        double proportionalGain = Math.Min(Math.Pow(processedSteps / TotalSteps, 2), 1.0);
 
         if (deltaSpeed > 0)
         {

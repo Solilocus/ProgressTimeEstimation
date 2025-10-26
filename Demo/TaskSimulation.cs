@@ -2,6 +2,9 @@
 
 namespace Demo;
 
+/// <summary>
+/// Simulate a task progression. Contains a list of measure points with the steps processed and the elapsed time.
+/// </summary>
 public class TaskSimulation
 {
     public double TotalDurationSeconds
@@ -33,6 +36,13 @@ public class TaskSimulation
         Measurements = new List<StepsSecondsPoint>();
     }
 
+    /// <summary>
+    /// Add a linear section to the task.
+    /// </summary>
+    /// <param name="deltaSteps">Number of steps processed during this section.</param>
+    /// <param name="durationSeconds">Duration of the section.</param>
+    /// <param name="measurementCount">Number of measurements along the segment.</param>
+    /// <exception cref="ArgumentException">Must have at least 1 measurement.</exception>
     public void AddMeasurements(double deltaSteps, double durationSeconds, uint measurementCount)
     {
         if (measurementCount == 0)
