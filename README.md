@@ -33,6 +33,8 @@ Thanks to [Sumrix's ConsolePlot](https://github.com/Sumrix/ConsolePlot/) for the
 
 <img src="Images/Experiment1Graph.png" alt="Scenario example. Task of 60 seconds and 100 steps. 4 times the task doesn't progress during 5 seconds." width="600">
 
+*Scenario example. Task of 60 seconds and 100 steps. 4 times the task doesn't progress during 5 seconds.*
+
 ## Glossary
 
 | Name | Description | Example |
