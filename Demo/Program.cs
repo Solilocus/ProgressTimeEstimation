@@ -83,8 +83,7 @@ internal class Program
         Console.WriteLine("Testing slow start, then speed up. 10 measures.");
         Console.WriteLine($"Elapsed seconds | Progress % | Real remaining seconds | Estimated remaining seconds | error in seconds");
 
-        var maxProcessTime = TimeSpan.FromSeconds(experimentSpeedUp10.TotalSteps * 6);
-        var estimator = new RemainingTimeEstimator(experimentSpeedUp10.TotalSteps, maxProcessTime);
+        var estimator = new RemainingTimeEstimator(experimentSpeedUp10.TotalSteps);
         await SimulateExperiment(experimentSpeedUp10, estimator);
     }
 
@@ -97,8 +96,7 @@ internal class Program
         Console.WriteLine("Testing fast start, then slow down. 10 measures.");
         Console.WriteLine($"Elapsed seconds | Progress % | Real remaining seconds | Estimated remaining seconds | error in seconds");
 
-        var maxProcessTime = TimeSpan.FromSeconds(experimentSlowDown10.TotalSteps * 6);
-        var estimator = new RemainingTimeEstimator(experimentSlowDown10.TotalSteps, maxProcessTime);
+        var estimator = new RemainingTimeEstimator(experimentSlowDown10.TotalSteps);
         await SimulateExperiment(experimentSlowDown10, estimator);
     }
 
